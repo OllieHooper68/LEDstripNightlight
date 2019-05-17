@@ -1,0 +1,115 @@
+#include <CapacitiveSensor.h>
+#include <SoftwareSerial.h>
+SoftwareSerial ble(9, 10); // RX, TX 
+#define RED_LED 6
+#define BLUE_LED 5
+#define GREEN_LED 9
+CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2);        // 10M resistor between pins 4 & 2, pin 2 is sensor pin, add a wire and or foil if desired
+char junk; //varible for clear the serial
+String inputString=""; //varible to store character from Bluetooth module
+//varibles to store LED colour values
+int red;
+int green;
+int blue;
+void setup() {
+   Serial.begin(9600);
+   ble.begin(9600);
+   ble.println("Connect");
+   //set pins to output
+   pinMode(GREEN_LED, OUTPUT);
+   pinMode(RED_LED, OUTPUT);
+   pinMode(BLUE_LED, OUTPUT);
+
+   //Give the LEDs a value of the PWM 0, start the RGB LEDs off
+   analogWrite(RED_LED,0);
+   analogWrite(GREEN_LED,0);
+   analogWrite(BLUE_LED,0);
+}
+
+void loop() {
+   if(ble.available()){ //check that the serial connection is available
+    while(ble.available()){ //while the serial connection is available
+      char inChar = (char)ble.read(); //read the input from the Bluetooth module
+      inputString += inChar; //make a string of character coming on serial
+    }
+    Serial.println(inputString);
+    while(ble.available() > 0){
+      junk = ble.read();} //clear the serial
+      if(inputString == "x"){//if the serial receives character x all LEDs will turn off
+        red = 0; green = 0; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "z"){//if the serial receives character z all LEDs will turn to full brightness
+        red = random(0,255); green = random(0,255); blue = random(0,255);
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "y"){//if the serial receives character y the LED strip will turn yellow
+        red = 255; green = 255; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "b"){//if the serial receives character b the LED strip will turn blue
+        red = 0; green = 0; blue = 255;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "c"){//if the serial receives character c the LED strip will turn cyan
+        red = 0; green = 255; blue = 255;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "r"){ //if the serial receives character r the LED strip will turn red
+        red = 255; green = 0; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "p"){ //if the serial receives character p the LED strip will turn pink
+        red = 255; green = 192; blue = 203;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "o"){ //if the serial receives character o the LED strip will turn orange
+        red = 255; green = 165; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "g"){ //if the serial receives character g the LED strip will turn ligh green
+        red = 0; green = 255; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "v"){ //if the serial receives character v the LED strip will turn violet
+        red = 238; green = 130; blue = 238;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }else if(inputString == "t"){ //if the serial receives character t the LED strip will turn dark green
+        red = 0; green = 128; blue = 0;
+        analogWrite(RED_LED, red);
+        //analogWrite(GREEN_LED, green);
+        analogWrite(BLUE_LED, blue);
+      }
+      inputString = "";
+   }
+   //store sensor value is varible
+    long total1 =  cs_4_2.capacitiveSensor(30);
+    //if statement for Capacitive Sensor
+    if(total1 < 10000){
+    }else if (total1 > 12500){
+        red = 0;
+        green = 0;
+        blue = 0;
+    }
+    //Print Sensor Value to Serial Monitor
+    Serial.print(total1);                  // print sensor output 1
+    Serial.print("\n");
+    
+    delay(200); // arbitrary delay to limit data to serial port
+
+    //Give the LEDs a value of the PWM 0, start the RGB LEDs off
+     analogWrite(RED_LED,red);
+     analogWrite(GREEN_LED,0);
+     analogWrite(BLUE_LED,blue);
+}
