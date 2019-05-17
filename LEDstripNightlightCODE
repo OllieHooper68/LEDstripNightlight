@@ -3,7 +3,7 @@
 SoftwareSerial ble(9, 10); // RX, TX 
 #define RED_LED 6
 #define BLUE_LED 5
-#define GREEN_LED 9
+#define GREEN_LED 11
 CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2);        // 10M resistor between pins 4 & 2, pin 2 is sensor pin, add a wire and or foil if desired
 char junk; //varible for clear the serial
 String inputString=""; //varible to store character from Bluetooth module
