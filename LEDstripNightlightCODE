@@ -38,57 +38,57 @@ void loop() {
       if(inputString == "x"){//if the serial receives character x all LEDs will turn off
         red = 0; green = 0; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "z"){//if the serial receives character z all LEDs will turn to full brightness
         red = random(0,255); green = random(0,255); blue = random(0,255);
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "y"){//if the serial receives character y the LED strip will turn yellow
-        red = 255; green = 255; blue = 0;
+        red = 230; green = 230; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "b"){//if the serial receives character b the LED strip will turn blue
         red = 0; green = 0; blue = 255;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "c"){//if the serial receives character c the LED strip will turn cyan
         red = 0; green = 255; blue = 255;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "r"){ //if the serial receives character r the LED strip will turn red
         red = 255; green = 0; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "p"){ //if the serial receives character p the LED strip will turn pink
-        red = 255; green = 192; blue = 203;
+        red = 220; green = 152; blue = 163;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "o"){ //if the serial receives character o the LED strip will turn orange
         red = 255; green = 165; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "g"){ //if the serial receives character g the LED strip will turn ligh green
         red = 0; green = 255; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "v"){ //if the serial receives character v the LED strip will turn violet
-        red = 238; green = 130; blue = 238;
+        red = 255; green = 120; blue = 130;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }else if(inputString == "t"){ //if the serial receives character t the LED strip will turn dark green
         red = 0; green = 128; blue = 0;
         analogWrite(RED_LED, red);
-        //analogWrite(GREEN_LED, green);
+        analogWrite(GREEN_LED, green);
         analogWrite(BLUE_LED, blue);
       }
       inputString = "";
@@ -97,12 +97,12 @@ void loop() {
     long total1 =  cs_4_2.capacitiveSensor(30);
     //if statement for Capacitive Sensor
     if(total1 < 10000){
-    }else if (total1 > 12500){
+    }else if (total1 > 15000){
         red = 0;
         green = 0;
         blue = 0;
     }
-    //Print Sensor Value to Serial Monitor
+//    Print Sensor Value to Serial Monitor
     Serial.print(total1);                  // print sensor output 1
     Serial.print("\n");
     
@@ -110,6 +110,6 @@ void loop() {
 
     //Give the LEDs a value of the PWM 0, start the RGB LEDs off
      analogWrite(RED_LED,red);
-     analogWrite(GREEN_LED,0);
+     analogWrite(GREEN_LED,green);
      analogWrite(BLUE_LED,blue);
 }
